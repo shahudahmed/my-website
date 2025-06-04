@@ -1,29 +1,230 @@
-<script>
-  const spaceId = 'n824nrvxub4b';
-  const accessToken = 'mjxr5BJo2Z61nTitnbZEKdVRGW9_eVsESA5mMeMTaJg';
-  const contentType = 'blogPost'; // make sure this matches what you named in Contentful
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BigRedBanana Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .post-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            background: #f9f9f9;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .post-title {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            cursor: pointer;
+        }
+        
+        .post-title:hover {
+            color: #e74c3c;
+        }
+        
+        .post-date {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        
+        .post-thumbnail {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .loading {
+            text-align: center;
+            font-size: 1.2em;
+            color: #666;
+        }
+        
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            padding: 20px;
+            background: #ffeaea;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .setup-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .setup-notice h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        
+        .setup-notice code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍌 BigRedBanana Blog</h1>
+        
+        <!-- Ready to Use! -->
+        <div class="setup-notice">
+            <h3>✅ Connected to Contentful!</h3>
+            <p>Your blog is now connected to your Contentful space. To see posts:</p>
+            <ol>
+                <li>Go to your Contentful dashboard</li>
+                <li>Click on "Content" in the sidebar</li>
+                <li>Create or edit a blog post</li>
+                <li>Make sure to <strong>PUBLISH</strong> it (not just save as draft)</li>
+                <li>Refresh this page to see your posts!</li>
+            </ol>
+        </div>
+        
+        <div id="loading" class="loading">Loading blog posts...</div>
+        <div id="error" class="error" style="display: none;"></div>
+        <div id="blog-posts" class="blog-posts"></div>
+    </div>
 
-  fetch(`https://cdn.contentful.com/spaces/${spaceId}/entries?access_token=${accessToken}&content_type=${contentType}&order=-fields.publishDate&include=1`)
-    .then((res) => res.json())
-    .then((data) => {
-      const blogContainer = document.getElementById('blog-posts');
-      const assets = data.includes.Asset;
-
-      data.items.forEach((item) => {
-        const { title, content, slug, publishDate, thumbnail } = item.fields;
-
-        const imageId = item.fields.thumbnail.sys.id;
-        const imageUrl = assets.find(asset => asset.sys.id === imageId).fields.file.url;
-
-        blogContainer.innerHTML += `
-          <div class="blog-post" style="margin-bottom: 30px;">
-            <img src="https:${imageUrl}" style="width: 100%; max-width: 600px;" />
-            <h2>${title}</h2>
-            <p><strong>Date:</strong> ${new Date(publishDate).toDateString()}</p>
-            <p>${content.content[0].content[0].value}</p>
-          </div>
-        `;
-      });
-    })
-    .catch((err) => console.error("Contentful error:", err));
-</script>
+    <script>
+        // ✅ YOUR CONTENTFUL CREDENTIALS
+        const SPACE_ID = 'n824nrvxub4b';
+        const ACCESS_TOKEN = 'mjxr5BJo2Z61nTitnbZEKdVRGW9_eVsESA5mMeMTaJg';
+        
+        // Contentful API endpoint (using 'blogpost' to match your content type)
+        const CONTENTFUL_API = `https://cdn.contentful.com/spaces/${SPACE_ID}/entries?access_token=${ACCESS_TOKEN}&content_type=blogpost&order=-fields.publishDate`;
+        
+        // Function to format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+        
+        // Function to get asset URL
+        function getAssetUrl(assets, assetId) {
+            const asset = assets.find(asset => asset.sys.id === assetId);
+            return asset ? `https:${asset.fields.file.url}` : null;
+        }
+        
+        // Function to create post HTML
+        function createPostHTML(post, assets) {
+            const thumbnailId = post.fields.thumbnail?.sys?.id;
+            const thumbnailUrl = thumbnailId ? getAssetUrl(assets, thumbnailId) : null;
+            
+            return `
+                <div class="post-card">
+                    ${thumbnailUrl ? `<img src="${thumbnailUrl}" alt="${post.fields.title}" class="post-thumbnail">` : ''}
+                    <h2 class="post-title" onclick="openPost('${post.fields.slug}')">${post.fields.title}</h2>
+                    <div class="post-date">${formatDate(post.fields.publishDate)}</div>
+                    <p>${post.fields.content ? post.fields.content.substring(0, 150) + '...' : 'No preview available'}</p>
+                </div>
+            `;
+        }
+        
+        // Function to open individual post (you can customize this)
+        function openPost(slug) {
+            alert(`Opening post: ${slug}\n\nYou can customize this function to:\n- Open in a modal\n- Navigate to a detailed page\n- Show full content`);
+        }
+        
+        // Function to fetch and display blog posts
+        async function fetchBlogPosts() {
+            try {
+                // Check if credentials are properly set
+                if (!SPACE_ID || !ACCESS_TOKEN) {
+                    throw new Error('Contentful credentials not configured');
+                }
+                
+                const response = await fetch(CONTENTFUL_API);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Hide loading
+                document.getElementById('loading').style.display = 'none';
+                
+                if (data.items.length === 0) {
+                    document.getElementById('error').innerHTML = 'No blog posts found. Make sure you have published some blog posts in Contentful.';
+                    document.getElementById('error').style.display = 'block';
+                    return;
+                }
+                
+                // Generate HTML for each post
+                const postsHTML = data.items.map(post => createPostHTML(post, data.includes.Asset || [])).join('');
+                
+                // Display posts
+                document.getElementById('blog-posts').innerHTML = postsHTML;
+                
+            } catch (error) {
+                console.error('Error fetching blog posts:', error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').innerHTML = `
+                    <h3>Error loading blog posts</h3>
+                    <p>Error: ${error.message}</p>
+                    <p>Please check:</p>
+                    <ul>
+                        <li>Your Space ID and Access Token are correct</li>
+                        <li>Your content type is named 'blogPost'</li>
+                        <li>You have published some blog posts</li>
+                    </ul>
+                `;
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+        
+        // Load blog posts when page loads
+        document.addEventListener('DOMContentLoaded', fetchBlogPosts);
+    </script>
+</body>
+</html>
