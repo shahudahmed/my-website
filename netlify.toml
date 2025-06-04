@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://bigredbanana.com/*"
+  to = "https://bigredbanana.in/:splat"
+  status = 301
+  force = true
