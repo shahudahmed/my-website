@@ -70,7 +70,7 @@
             let bodyHtml = "<p class='text-gray-500'>This post has no text content.</p>";
 
             // Check if the Contentful rich text renderer is available
-            const richTextRenderer = window['@contentful/rich-text-html-renderer'];
+            const richTextRenderer = window.richTextHtmlRenderer;
 
             if (post.fields.content && richTextRenderer && typeof richTextRenderer.documentToHtmlString === 'function') {
                 try {
