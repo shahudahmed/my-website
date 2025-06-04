@@ -75,12 +75,12 @@
             if (post.fields.content && richTextRenderer && typeof richTextRenderer.documentToHtmlString === 'function') {
                 try {
                     // Attempt to render the rich text content
-                    bodyHtml = richTextRenderer.documentToHtmlString(post.fields.content);
+                    bodyHtml = richTextRenderer.documentToHtmlString(post.fields.body);
                 } catch (renderError) {
                     console.error('Error rendering rich text for post:', post.sys.id, renderError);
                     bodyHtml = "<p class='text-red-500'>Error displaying content. The content might be malformed.</p>";
                 }
-            } else if (post.fields.content) {
+            } else if (post.fields.body) {
                 // Renderer is not available, but content exists
                 console.warn('Contentful Rich Text Renderer not available, but content field exists for post:', post.sys.id);
                 bodyHtml = "<p class='text-yellow-500'>Content exists but cannot be displayed (renderer missing).</p>";
