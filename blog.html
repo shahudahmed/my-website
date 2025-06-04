@@ -3,50 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
-   
-</head>
-<body>
-    <header>
-        <h1>My Blog</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/blog.html">Blog</a>
-        </nav>
-    </header>
-    <main id="blog-posts"></main>
-    <script src="https://unpkg.com/@contentful/rich-text-html-renderer@15.12.0/dist/rich-text-html-renderer.umd.js"></script>
-    <script>
-const spaceId = 'n824nrvxub4b';
-const accessToken = 'mjxr5BJo2Z61nTitnbZEKdVRGW9_eVsESA5mMeMTaJg';
-const url = `https://cdn.contentful.com/spaces/${spaceId}/environments/master/entries?access_token=${accessToken}&content_type=blogPost&include=1&locale=*`;
-
-fetch(url)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data); // Debug: See what Contentful returns
-        const posts = data.items;
-        const blogContainer = document.getElementById('blog-posts');
-        if (!posts.length) {
-            blogContainer.innerHTML = "<p>No blog posts found.</p>";
-            return;
+    <title>My Awesome Blog</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles if needed */
+        body {
+            font-family: 'Inter', sans-serif; /* A common, clean font */
         }
-        posts.forEach(post => {
-            const title = post.fields.title || "Untitled";
-            let bodyHtml = "<p>No content.</p>";
-            if (post.fields.content) {
-                // Use the correct function path
-                bodyHtml = window['@contentful/rich-text-html-renderer'].documentToHtmlString(post.fields.content);
+        .blog-post-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem; /* Rounded corners for images */
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .blog-post-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .blog-post-content h1, .blog-post-content h2, .blog-post-content h3, .blog-post-content h4, .blog-post-content h5, .blog-post-content h6 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-blue-600">My Awesome Blog</h1>
+            <nav>
+                <a href="/" class="text-blue-500 hover:text-blue-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                <a href="/blog.html" class="text-blue-500 hover:text-blue-700 px-3 py-2 rounded-md text-sm font-medium">Blog</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="blog-posts-container" class="container mx-auto px-6 py-8">
+        <!-- Loading message will be shown here -->
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
+        <p>&copy; 2025 My Awesome Blog. All rights reserved.</p>
+    </footer>
+
+    <!-- Contentful Rich Text Renderer -->
+    <script src="https://unpkg.com/@contentful/rich-text-html-renderer@15.12.0/dist/rich-text-html-renderer.umd.js"></script>
+
+    <script>
+        // Contentful API Configuration
+        const spaceId = 'n824nrvxub4b'; // Your Space ID
+        const accessToken = 'mjxr5BJo2Z61nTitnbZEKdVRGW9_eVsESA5mMeMTaJg'; // Your Content Delivery API access token
+        const contentType = 'blogPost'; // The ID of your Blog Post content type in Contentful
+        const contentfulUrl = `https://cdn.contentful.com/spaces/${spaceId}/environments/master/entries?access_token=${accessToken}&content_type=${contentType}&include=1&locale=*`;
+
+        // DOM Element
+        const blogContainer = document.getElementById('blog-posts-container');
+
+        // Function to render individual blog posts
+        function renderBlogPost(post) {
+            const article = document.createElement('article');
+            article.className = 'bg-white p-6 rounded-lg shadow-lg mb-8';
+
+            const title = post.fields.title || "Untitled Post";
+            let bodyHtml = "<p class='text-gray-500'>This post has no text content.</p>";
+
+            // Check if the Contentful rich text renderer is available
+            const richTextRenderer = window['@contentful/rich-text-html-renderer'];
+
+            if (post.fields.content && richTextRenderer && typeof richTextRenderer.documentToHtmlString === 'function') {
+                try {
+                    // Attempt to render the rich text content
+                    bodyHtml = richTextRenderer.documentToHtmlString(post.fields.content);
+                } catch (renderError) {
+                    console.error('Error rendering rich text for post:', post.sys.id, renderError);
+                    bodyHtml = "<p class='text-red-500'>Error displaying content. The content might be malformed.</p>";
+                }
+            } else if (post.fields.content) {
+                // Renderer is not available, but content exists
+                console.warn('Contentful Rich Text Renderer not available, but content field exists for post:', post.sys.id);
+                bodyHtml = "<p class='text-yellow-500'>Content exists but cannot be displayed (renderer missing).</p>";
             }
-            const postElement = document.createElement('article');
-            postElement.innerHTML = `<h2>${title}</h2>${bodyHtml}`;
-            blogContainer.appendChild(postElement);
-        });
-    })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-        document.getElementById('blog-posts').innerHTML = "<p>Error loading blog posts.</p>";
-    });
+
+            article.innerHTML = `
+                <h2 class="text-2xl font-semibold mb-2 text-gray-700">${title}</h2>
+                <div class="text-sm text-gray-500 mb-4">
+                    Published: ${new Date(post.sys.createdAt).toLocaleDateString()}
+                </div>
+                <div class="prose max-w-none blog-post-content">
+                    ${bodyHtml}
+                </div>
+            `;
+            return article;
+        }
+
+        // Function to fetch and display blog posts
+        async function fetchAndDisplayBlogPosts() {
+            // Display loading message
+            blogContainer.innerHTML = '<p class="text-center text-gray-600 text-xl">Loading awesome blog posts...</p>';
+
+            try {
+                const response = await fetch(contentfulUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                console.log('Contentful API Response:', data); // For debugging
+
+                // Clear loading message
+                blogContainer.innerHTML = '';
+
+                if (data.items && data.items.length > 0) {
+                    data.items.forEach(post => {
+                        // Basic validation: ensure 'fields' exists
+                        if (post.fields) {
+                            const postElement = renderBlogPost(post);
+                            blogContainer.appendChild(postElement);
+                        } else {
+                            console.warn('Skipping post due to missing fields:', post.sys.id);
+                        }
+                    });
+                } else {
+                    blogContainer.innerHTML = '<p class="text-center text-gray-500">No blog posts found. Check back later!</p>';
+                }
+
+            } catch (error) {
+                console.error('Error fetching blog posts:', error);
+                blogContainer.innerHTML = `<p class="text-center text-red-600">Oops! Something went wrong while loading posts. Please try refreshing the page. Details: ${error.message}</p>`;
+            }
+        }
+
+        // Initial call to fetch posts when the page loads
+        fetchAndDisplayBlogPosts();
     </script>
 </body>
 </html>
