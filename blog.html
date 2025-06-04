@@ -19,8 +19,7 @@
     <script>
 const spaceId = 'n824nrvxub4b'; // Replace with your Space ID
 const accessToken = 'mjxr5BJo2Z61nTitnbZEKdVRGW9_eVsESA5mMeMTaJg'; // Replace with your Access Token
-const url = `https://cdn.contentful.com/spaces/n824nrvxub4b/entries?access_token=${accessToken}&content_type=blogPost&include=1`;
-
+const url = `https://cdn.contentful.com/spaces/${spaceId}/environments/master/entries?access_token=${accessToken}&content_type=blogPost&include=1`;
 fetch(url)
     .then(response => response.json())
     .then(data => {
