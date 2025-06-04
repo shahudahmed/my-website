@@ -35,7 +35,7 @@ fetch(url)
             const title = post.fields.title || "Untitled";
             let bodyHtml = "<p>No content.</p>";
             if (post.fields.content) {
-                bodyHtml = window.contentfulRichTextHtmlRenderer.documentToHtmlString(post.fields.content);
+                bodyHtml = window.documentToHtmlString(post.fields.content);
             }
             const postElement = document.createElement('article');
             postElement.innerHTML = `<h2>${title}</h2>${bodyHtml}`;
