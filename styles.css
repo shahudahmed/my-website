@@ -1426,4 +1426,71 @@
   }
   .hidden {
     display: none !important;
-  }
+  } 
+/* =============================================== */
+/* Styles for Single Blog Post Content             */
+/* =============================================== */
+
+/* The main container for the article body */
+#post-body {
+    max-width: 800px; /* Set a max-width for better readability */
+    margin: 2rem auto; /* Center the content */
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-gray);
+}
+
+/* Styles for all headings inside the post */
+#post-body h1,
+#post-body h2,
+#post-body h3,
+#post-body h4 {
+    color: var(--text-light);
+    font-family: 'Space Grotesk', sans-serif;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Styles for all paragraphs */
+#post-body p {
+    margin-bottom: 1.5rem;
+}
+
+/* Styles for links within the post body */
+#post-body a {
+    color: var(--secondary-yellow);
+    text-decoration: none;
+    border-bottom: 2px solid var(--primary-red);
+    transition: background-color 0.3s ease;
+}
+
+#post-body a:hover {
+    background-color: rgba(245, 158, 11, 0.1);
+}
+
+/* Style for bold text */
+#post-body strong {
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+/* Styles for bullet points and numbered lists */
+#post-body ul,
+#post-body ol {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+#post-body li {
+    margin-bottom: 0.5rem;
+}
+
+/* Style for blockquotes */
+#post-body blockquote {
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid var(--primary-red);
+    background-color: var(--glass-bg);
+    color: var(--text-light);
+    font-style: italic;
+}
