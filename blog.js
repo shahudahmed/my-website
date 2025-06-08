@@ -32,4 +32,4 @@ client.fetch(query).then(posts => {
 }).catch(error => {
     console.error('Error fetching posts:', error);
     postsContainer.innerHTML = "<p>Could not load blog posts at this time.</p>";
-});Add comment
+});
