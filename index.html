@@ -323,6 +323,7 @@
             overflow: hidden;
             border: 2px solid transparent; 
             font-size: 0.95rem; /* Slightly adjusted font size */
+            cursor: pointer;
         }
 
         .cta-primary {
@@ -333,6 +334,13 @@
         .cta-primary:hover {
             box-shadow: 0 12px 35px rgba(220, 38, 38, 0.35);
             filter: brightness(1.1);
+        }
+       .cta-primary:disabled {
+            background: var(--text-gray);
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+            filter: brightness(0.7);
         }
 
         .cta-secondary {
@@ -686,6 +694,81 @@
             transform: scale(1.1);
             background: var(--primary-red); 
         }
+
+        /* --- AI Slogan Generator Section --- */
+        #slogan-generator {
+            background: radial-gradient(ellipse at center, rgba(220, 38, 38, 0.08) 0%, transparent 65%);
+        }
+
+        .slogan-input-group {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        #slogan-topic-input {
+            flex-grow: 1;
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #slogan-topic-input:focus {
+            border-color: var(--primary-red);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.25);
+        }
+        #generate-slogan-btn .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        .slogan-results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            min-height: 100px;
+        }
+
+        .slogan-card {
+            background: var(--card-bg);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+        }
+        .slogan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .slogan-card::before {
+            content: '🍌';
+            font-size: 1.5rem;
+            color: var(--secondary-yellow);
+        }
+        .slogan-card.error-card {
+             border-left: 4px solid var(--primary-red);
+        }
+         .slogan-card.error-card::before {
+            content: '⚠️';
+         }
+
+        /* --- End AI Slogan Generator Section --- */
+
 
         /* Pricing Section Styles */
         #pricing {
@@ -1225,6 +1308,14 @@
             .about-features {
                 grid-template-columns: 1fr;
             }
+             .slogan-input-group {
+                flex-direction: column;
+            }
+
+            #slogan-topic-input,
+            #generate-slogan-btn {
+                width: 100%;
+            }
 
             .cta-group {
                 justify-content: center;
@@ -1259,7 +1350,8 @@
 
             .work-grid,
             .team-grid,
-            .pricing-grid { /* Ensure single column for very small screens */
+            .pricing-grid,
+            .slogan-results-grid { 
                 grid-template-columns: 1fr;
             }
             .hero-text h1 {
@@ -1339,17 +1431,15 @@
   content: '';
   position: absolute;
   top: 0;
-  left: -150px;
-  height: 100%;
-  width: 150px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateX(-100%);
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
   animation: shimmer 1.6s infinite;
 }
 
 @keyframes shimmer {
-  0% {
-    transform: translateX(0);
-  }
   100% {
     transform: translateX(100%);
   }
@@ -1382,6 +1472,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#team">Team</a></li>
                 <li><a href="#work">Portfolio</a></li>
+                <li><a href="#slogan-generator">AI Sloganizer</a></li>
                 <li><a href="#pricing">Pricing</a></li> 
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="blog.html">Blog</a></li>
@@ -1591,84 +1682,100 @@ Basically, he’s the reason our wild ideas actually work.
         </div>
     </section>
 
+    <section id="slogan-generator">
+        <div class="container">
+            <h2 class="section-title">Spark Your Creativity</h2>
+            <p class="section-subtitle">Need a catchy slogan? Enter a topic and let our AI-powered tool generate some ideas for you!</p>
+            <div class="slogan-input-group">
+                <input type="text" id="slogan-topic-input" placeholder="e.g., coffee shop, fitness app...">
+                <button id="generate-slogan-btn" class="cta-button cta-primary">
+                    <i class="fas fa-magic"></i>&nbsp;Generate Slogans
+                </button>
+            </div>
+            <div id="slogan-results-container" class="slogan-results-grid">
+                <!-- AI results will be injected here -->
+            </div>
+        </div>
+    </section>
+
       <section id="pricing">
         <div class="container">
             <h2 class="section-title">Pricing Plans That Peel Open Potential</h2>
             <p class="section-subtitle">We offer competitive and transparent pricing to help your business thrive. Choose the plan that's ripe for your success!</p>
           
             <div class="pricing-grid" id="pricingSkeletons">
-  <div class="pricing-card skeleton" style="height: 520px;"></div>
-  <div class="pricing-card skeleton" style="height: 520px;"></div>
-  <div class="pricing-card skeleton" style="height: 520px;"></div>
-</div>
-<!-- Actual cards hidden initially -->
-<div class="pricing-grid hidden" id="pricingContent">
-  <!-- paste your 3 .pricing-card divs here (Starter, Growth, Bonanza) -->
-   <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <h3>Starter Peel</h3>
-                        <p class="plan-subtitle">For Small Businesses & Startups</p>
-                    </div>
-                    <div class="pricing-card-price">
-                        <span class="currency">$</span>249<span class="period">/Month</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check-circle"></i> Social Account Setup (2 Platforms)</li>
-                        <li><i class="fas fa-check-circle"></i> Basic Content Creation & Posting</li>
-                        <li><i class="fas fa-check-circle"></i> Community Engagement Basics</li>
-                        <li><i class="fas fa-check-circle"></i> Monthly Performance Snapshot</li>
-                        <li><i class="fas fa-check-circle"></i> Hashtag Research & Strategy</li>
-                        <li class="dimmed"><i class="fas fa-times-circle"></i> Advanced Analytics</li>
-                        <li class="dimmed"><i class="fas fa-times-circle"></i> Ad Spend Consultation</li>
-                    </ul>
-                    <a href="#contact" class="cta-button cta-secondary">
-                        <i class="fas fa-shopping-cart"></i> Get Started
-                    </a>
-                </div>
-                <div class="pricing-card recommended">
-                    <div class="recommended-badge">Most Popular</div>
-                    <div class="pricing-card-header">
-                        <h3>Growth Bundle</h3>
-                        <p class="plan-subtitle">For Growing Medium Businesses</p>
-                    </div>
-                    <div class="pricing-card-price">
-                        <span class="currency">$</span>349<span class="period">/Month</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check-circle"></i> Everything in Starter Peel, plus:</li>
-                        <li><i class="fas fa-check-circle"></i> Content Strategy & Development</li>
-                        <li><i class="fas fa-check-circle"></i> Enhanced Content Creation (Graphics/Video)</li>
-                        <li><i class="fas fa-check-circle"></i> Audience Targeting & Growth Tactics</li>
-                        <li><i class="fas fa-check-circle"></i> Social Media Ad Management (Up to $500/mo)</li>
-                        <li><i class="fas fa-check-circle"></i> Advanced Analytics & Reporting</li>
-                        <li><i class="fas fa-check-circle"></i> Competitor Analysis Lite</li>
-                    </ul>
-                     <a href="#contact" class="cta-button cta-primary"> <i class="fas fa-rocket"></i> Choose Plan
-                    </a>
-                </div>
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <h3>Banana Bonanza</h3>
-                        <p class="plan-subtitle">For Large Businesses & Enterprises</p>
-                    </div>
-                    <div class="pricing-card-price">
-                        <span class="currency">$</span>699<span class="period">/Month</span>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check-circle"></i> Everything in Growth Bundle, plus:</li>
-                        <li><i class="fas fa-check-circle"></i> Comprehensive Social Media Management</li>
-                        <li><i class="fas fa-check-circle"></i> In-depth Analytics & Custom Reporting</li>
-                        <li><i class="fas fa-check-circle"></i> Advanced Ad Campaign Strategies</li>
-                        <li><i class="fas fa-check-circle"></i> Reputation Management & Social Listening</li>
-                        <li><i class="fas fa-check-circle"></i> Cross-Channel Integration Strategy</li>
-                        <li><i class="fas fa-check-circle"></i> Dedicated Account Manager</li>
-                    </ul>
-                    <a href="#contact" class="cta-button cta-secondary">
-                        <i class="fas fa-crown"></i> Go Bonanza
-                    </a>
-                </div>
+                <div class="pricing-card skeleton" style="height: 520px;"></div>
+                <div class="pricing-card skeleton" style="height: 520px;"></div>
+                <div class="pricing-card skeleton" style="height: 520px;"></div>
+            </div>
+            <!-- Actual cards hidden initially -->
+            <div class="pricing-grid hidden" id="pricingContent">
+            <!-- paste your 3 .pricing-card divs here (Starter, Growth, Bonanza) -->
+            <div class="pricing-card">
+                                <div class="pricing-card-header">
+                                    <h3>Starter Peel</h3>
+                                    <p class="plan-subtitle">For Small Businesses & Startups</p>
+                                </div>
+                                <div class="pricing-card-price">
+                                    <span class="currency">$</span>249<span class="period">/Month</span>
+                                </div>
+                                <ul class="pricing-features">
+                                    <li><i class="fas fa-check-circle"></i> Social Account Setup (2 Platforms)</li>
+                                    <li><i class="fas fa-check-circle"></i> Basic Content Creation & Posting</li>
+                                    <li><i class="fas fa-check-circle"></i> Community Engagement Basics</li>
+                                    <li><i class="fas fa-check-circle"></i> Monthly Performance Snapshot</li>
+                                    <li><i class="fas fa-check-circle"></i> Hashtag Research & Strategy</li>
+                                    <li class="dimmed"><i class="fas fa-times-circle"></i> Advanced Analytics</li>
+                                    <li class="dimmed"><i class="fas fa-times-circle"></i> Ad Spend Consultation</li>
+                                </ul>
+                                <a href="#contact" class="cta-button cta-secondary">
+                                    <i class="fas fa-shopping-cart"></i> Get Started
+                                </a>
+                            </div>
+                            <div class="pricing-card recommended">
+                                <div class="recommended-badge">Most Popular</div>
+                                <div class="pricing-card-header">
+                                    <h3>Growth Bundle</h3>
+                                    <p class="plan-subtitle">For Growing Medium Businesses</p>
+                                </div>
+                                <div class="pricing-card-price">
+                                    <span class="currency">$</span>349<span class="period">/Month</span>
+                                </div>
+                                <ul class="pricing-features">
+                                    <li><i class="fas fa-check-circle"></i> Everything in Starter Peel, plus:</li>
+                                    <li><i class="fas fa-check-circle"></i> Content Strategy & Development</li>
+                                    <li><i class="fas fa-check-circle"></i> Enhanced Content Creation (Graphics/Video)</li>
+                                    <li><i class="fas fa-check-circle"></i> Audience Targeting & Growth Tactics</li>
+                                    <li><i class="fas fa-check-circle"></i> Social Media Ad Management (Up to $500/mo)</li>
+                                    <li><i class="fas fa-check-circle"></i> Advanced Analytics & Reporting</li>
+                                    <li><i class="fas fa-check-circle"></i> Competitor Analysis Lite</li>
+                                </ul>
+                                <a href="#contact" class="cta-button cta-primary"> <i class="fas fa-rocket"></i> Choose Plan
+                                </a>
+                            </div>
+                            <div class="pricing-card">
+                                <div class="pricing-card-header">
+                                    <h3>Banana Bonanza</h3>
+                                    <p class="plan-subtitle">For Large Businesses & Enterprises</p>
+                                </div>
+                                <div class="pricing-card-price">
+                                    <span class="currency">$</span>699<span class="period">/Month</span>
+                                </div>
+                                <ul class="pricing-features">
+                                    <li><i class="fas fa-check-circle"></i> Everything in Growth Bundle, plus:</li>
+                                    <li><i class="fas fa-check-circle"></i> Comprehensive Social Media Management</li>
+                                    <li><i class="fas fa-check-circle"></i> In-depth Analytics & Custom Reporting</li>
+                                    <li><i class="fas fa-check-circle"></i> Advanced Ad Campaign Strategies</li>
+                                    <li><i class="fas fa-check-circle"></i> Reputation Management & Social Listening</li>
+                                    <li><i class="fas fa-check-circle"></i> Cross-Channel Integration Strategy</li>
+                                    <li><i class="fas fa-check-circle"></i> Dedicated Account Manager</li>
+                                </ul>
+                                <a href="#contact" class="cta-button cta-secondary">
+                                    <i class="fas fa-crown"></i> Go Bonanza
+                                </a>
+                            </div>
 
-</div>
+            </div>
         </div>
     </section>
 
@@ -1735,7 +1842,7 @@ Basically, he’s the reason our wild ideas actually work.
         </div>
     </section>
 
-    <footer id="contact">
+    <footer id="contact-footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
@@ -1851,12 +1958,11 @@ Basically, he’s the reason our wild ideas actually work.
         const navLinks = document.querySelector('.nav-links');
 
         if (mobileMenu && navLinks) {
-    mobileMenu.addEventListener('click', function() {
-        navLinks.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-    });
-}
-
+            mobileMenu.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+        }
         
         // Stats counter animation
         function animateStats() {
@@ -1911,14 +2017,14 @@ Basically, he’s the reason our wild ideas actually work.
         // Intersection Observer for general scroll animations
         function addScrollAnimations() {
             const animatedElements = document.querySelectorAll(
-                '.section-title, .section-subtitle, .hero-text > *, .stat-item, .about-content > div, .feature-item, .team-card, .work-card, .pricing-card, .footer-section > *' // Added .pricing-card and .section-subtitle
+                '.section-title, .section-subtitle, .hero-text > *, .stat-item, .about-content > div, .feature-item, .team-card, .work-card, .pricing-card, .footer-section > *, .slogan-card' 
             );
             if (animatedElements.length === 0) return;
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry, index) => {
                     if (entry.isIntersecting) {
-                        const delay = (parseInt(entry.target.dataset.scrollDelay) || index * 50) + 'ms'; // Ensure dataset.scrollDelay is parsed as int
+                        const delay = (parseInt(entry.target.dataset.scrollDelay) || index * 50) + 'ms'; 
                         entry.target.style.transitionDelay = delay;
                         entry.target.classList.add('animate-in');
                         observer.unobserve(entry.target); 
@@ -1928,8 +2034,8 @@ Basically, he’s the reason our wild ideas actually work.
 
             animatedElements.forEach((el, index) => {
                 el.classList.add('scroll-animate-init'); 
-                el.dataset.scrollDelay = (index % 5) * 60; // Varied base delay for items in a group
-                if (el.classList.contains('hero-text-item')) { // Custom delay for hero items
+                el.dataset.scrollDelay = (index % 5) * 60; 
+                if (el.classList.contains('hero-text-item')) { 
                     el.dataset.scrollDelay = (Array.from(el.parentNode.children).indexOf(el)) * 100 + 300;
                 }
                 observer.observe(el);
@@ -2014,7 +2120,7 @@ Basically, he’s the reason our wild ideas actually work.
                 }
                 
                 .nav-links li {
-                    margin: 1.8rem 0; 
+                    margin: 1.5rem 0; 
                     width: 100%;
                     text-align: center;
                     opacity: 0; 
@@ -2030,7 +2136,9 @@ Basically, he’s the reason our wild ideas actually work.
                 .nav-links.active li:nth-child(3) { transition-delay: 0.2s; }
                 .nav-links.active li:nth-child(4) { transition-delay: 0.25s; }
                 .nav-links.active li:nth-child(5) { transition-delay: 0.3s; }
-                .nav-links.active li:nth-child(6) { transition-delay: 0.35s; } /* For new pricing link */
+                .nav-links.active li:nth-child(6) { transition-delay: 0.35s; }
+                .nav-links.active li:nth-child(7) { transition-delay: 0.4s; }
+
 
                 
                 .nav-links a {
@@ -2124,31 +2232,101 @@ Basically, he’s the reason our wild ideas actually work.
         console.log('%cInterested in working with us? (This is a demo site!)', 'color: #64748b; font-size: 12px;');
     </script>
     <script>
-  window.addEventListener('load', function () {
-    setTimeout(() => {
-      const skeletons = document.getElementById('pricingSkeletons');
-      const realContent = document.getElementById('pricingContent');
-      if (skeletons && realContent) {
-        skeletons.style.display = 'none';
-        realContent.style.display = 'grid';
-      }
-    }, 1500); // delay in ms
-  });
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  setTimeout(() => {
-    const skeletons = document.getElementById('pricingSkeletons');
-    const realContent = document.getElementById('pricingContent');
-    
-    if (skeletons && realContent) {
-      skeletons.classList.add('hidden');
-      realContent.classList.remove('hidden');
-    } else {
-      console.warn('Skeleton or content not found.');
-    }
-  }, 1500); // Delay in ms
-});
-</script>
+        // Pricing card skeleton loader
+        window.addEventListener('load', function () {
+            setTimeout(() => {
+            const skeletons = document.getElementById('pricingSkeletons');
+            const realContent = document.getElementById('pricingContent');
+            if (skeletons && realContent) {
+                skeletons.classList.add('hidden');
+                realContent.classList.remove('hidden');
+            }
+            }, 1500); // delay in ms
+        });
+    </script>
+
+    <script>
+        // --- AI Slogan Generator Script ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const sloganBtn = document.getElementById('generate-slogan-btn');
+            const topicInput = document.getElementById('slogan-topic-input');
+
+            if(sloganBtn) {
+                sloganBtn.addEventListener('click', handleSloganGeneration);
+            }
+            
+            if(topicInput) {
+                topicInput.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter') {
+                        handleSloganGeneration();
+                    }
+                });
+            }
+
+            async function handleSloganGeneration() {
+                const resultsContainer = document.getElementById('slogan-results-container');
+                const topic = topicInput.value.trim();
+                
+                if (!topic) {
+                    resultsContainer.innerHTML = '<div class="slogan-card error-card">Please enter a topic to generate slogans.</div>';
+                    return;
+                }
+                
+                sloganBtn.disabled = true;
+                sloganBtn.innerHTML = '<i class="fas fa-spinner"></i>&nbsp;Generating...';
+                
+                // Use the existing .skeleton class for a themed loading state
+                resultsContainer.innerHTML = `
+                    <div class="slogan-card skeleton" style="height: 80px;"></div>
+                    <div class="slogan-card skeleton" style="height: 80px;"></div>
+                    <div class="slogan-card skeleton" style="height: 80px;"></div>
+                `;
+
+                try {
+                    const prompt = `Generate 3 short, catchy marketing slogans for a business related to "${topic}". Return the response as a JSON array of strings.`;
+                    
+                    let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                    const payload = { 
+                        contents: chatHistory,
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "ARRAY",
+                                items: { type: "STRING" }
+                            }
+                        }
+                    };
+                    const apiKey = ""; // IMPORTANT: API key is handled by the execution environment.
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0].text) {
+                        const slogans = JSON.parse(result.candidates[0].content.parts[0].text);
+                        resultsContainer.innerHTML = slogans.map(slogan => `<div class="slogan-card">${slogan}</div>`).join('');
+                    } else {
+                        throw new Error("Invalid response structure from AI.");
+                    }
+
+                } catch (error) {
+                    console.error("Slogan Generation Error:", error);
+                    resultsContainer.innerHTML = `<div class="slogan-card error-card">Sorry, we couldn't generate slogans right now. Please try again later.</div>`;
+                } finally {
+                    sloganBtn.disabled = false;
+                    sloganBtn.innerHTML = '<i class="fas fa-magic"></i>&nbsp;Generate Slogans';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
