@@ -1,6 +1,6 @@
 // my-website/sanityClient.jsAdd commentMore actions
 
-import {createClient} from '@sanity/client'
+import {createClient} from 'https://esm.sh/@sanity/client'
 
 export const client = createClient({
   // Find your project ID in your sanity.json file
