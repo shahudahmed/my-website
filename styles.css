@@ -1494,3 +1494,74 @@
     color: var(--text-light);
     font-style: italic;
 }
+/* =============================================== */
+/* Styles for Blog List Page                       */
+/* =============================================== */
+
+/* Change the posts container to a responsive grid */
+#posts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* Styling for the new post card */
+.post-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.post-card-image {
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+}
+
+.post-card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.post-card-tags {
+    margin-bottom: 0.75rem;
+}
+
+.post-card-category {
+    background: var(--primary-red);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+.post-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Pushes the meta info to the bottom */
+}
+
+.post-card-meta {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
