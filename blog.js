@@ -8,11 +8,16 @@ const postsContainer = document.getElementById('posts-container');
 
 // Define the query to fetch blog posts
 // GROQ is Sanity's query language
+// my-website/blog.js
+
 const query = `*[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
   _id,
   title,
   slug,
-  "authorName": author->name
+  "authorName": author->name,
+  "imageUrl": mainImage.asset->url,
+  publishedAt,
+  categories[]->{title}
 }`;
 
 // Fetch the data from Sanity
