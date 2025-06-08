@@ -27,7 +27,7 @@ client.fetch(query).then(posts => {
         postCard.innerHTML = `
             <div class="work-content">
                 <h4>${post.title}</h4>
-                <p>By ${post.author?.name || 'Anonymous'}</p> <a href="/post.html?slug=${post.slug.current}">Read More</a>
+                <p>By ${post.authorName || 'Anonymous'}</p> <a href="/post.html?slug=${post.slug.current}">Read More</a>
             </div>
         `;
 
