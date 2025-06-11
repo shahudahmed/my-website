@@ -1,4 +1,4 @@
- <script>
+
         // Loading animation
         window.addEventListener('load', function() {
             setTimeout(() => {
@@ -333,8 +333,7 @@
         console.log('%c🍌 Big Red Banana Digital Marketing Agency 🍌', 'color: var(--secondary-red); font-size: 20px; font-weight: bold; background-color: var(--primary-yellow); padding: 5px 10px; border-radius: 5px;');
         console.log('%cWe make brands go absolutely bananas! 🚀', 'color: var(--secondary-red); font-size: 14px;');
         console.log('%cInterested in working with us? (This is a demo site!)', 'color: #64748b; font-size: 12px;');
-    </script>
-    <script>
+   
         // Pricing card skeleton loader
         window.addEventListener('load', function () {
             setTimeout(() => {
@@ -346,9 +345,9 @@
             }
             }, 1500); // delay in ms
         });
-    </script>
 
-<script>
+
+
 const reviewsData = [
   {
     quote: "Big Red Banana took our brand from invisible to unforgettable. Their creative campaigns and relentless energy made all the difference. We saw a 3x jump in engagement within months!",
@@ -435,4 +434,3 @@ dotsContainer.onclick = e => {
 
 renderReviews();
 startAutoSwitch();
-</script>
