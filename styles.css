@@ -1120,7 +1120,7 @@
 
 /* Styling for the new post card */
 .post-card {
-    background: var(--primary-yellow); /* CHANGED: Was var(--card-bg) */
+    background: var(--white); /* CHANGED: Was var(--card-bg) */
     border-radius: 15px;
     overflow: hidden;
     text-decoration: none;
@@ -1128,6 +1128,7 @@
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--glass-border); /* ADDED: A subtle border looks good on a light background */
 }
 
 .post-card:hover {
