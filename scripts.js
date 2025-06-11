@@ -383,53 +383,60 @@ const reviewsData = [
 
 const carousel = document.getElementById('reviewsCarousel');
 const dotsContainer = document.getElementById('reviewsDots');
-let current = 0, timer = null;
 
-function renderReviews() {
-  carousel.innerHTML = reviewsData.map((r, i) => `
-    <div class="review-card${i === current ? ' active' : ''}">
-      <div class="review-quote">${r.quote}</div>
-      <div class="review-client">
-        <div class="review-avatar">${r.avatar}</div>
-        <div class="review-client-info">
-          <div class="review-client-name">${r.name}</div>
-          <div class="review-client-role">${r.role}</div>
+if (carousel && dotsContainer) {
+    let current = 0, timer = null;
+
+    function renderReviews() {
+      carousel.innerHTML = reviewsData.map((r, i) => `
+        <div class="review-card${i === current ? ' active' : ''}">
+          <div class="review-quote">${r.quote}</div>
+          <div class="review-client">
+            <div class="review-avatar">${r.avatar}</div>
+            <div class="review-client-info">
+              <div class="review-client-name">${r.name}</div>
+              <div class="review-client-role">${r.role}</div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  `).join('');
-  dotsContainer.innerHTML = reviewsData.map((_, i) =>
-    `<div class="reviews-dot${i === current ? ' active' : ''}" data-idx="${i}"></div>`
-  ).join('');
-}
-function nextReview() {
-  current = (current + 1) % reviewsData.length;
-  renderReviews();
-}
-function prevReview() {
-  current = (current - 1 + reviewsData.length) % reviewsData.length;
-  renderReviews();
-}
-function goToReview(idx) {
-  current = idx;
-  renderReviews();
-}
-function startAutoSwitch() {
-  if (timer) clearInterval(timer);
-  timer = setInterval(() => {
-    nextReview();
-  }, 5000);
-}
-carousel.addEventListener('mouseenter', () => clearInterval(timer));
-carousel.addEventListener('mouseleave', startAutoSwitch);
+      `).join('');
+      dotsContainer.innerHTML = reviewsData.map((_, i) =>
+        `<div class="reviews-dot${i === current ? ' active' : ''}" data-idx="${i}"></div>`
+      ).join('');
+    }
+    function nextReview() {
+      current = (current + 1) % reviewsData.length;
+      renderReviews();
+    }
+    function prevReview() {
+      current = (current - 1 + reviewsData.length) % reviewsData.length;
+      renderReviews();
+    }
+    function goToReview(idx) {
+      current = idx;
+      renderReviews();
+    }
+    function startAutoSwitch() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => {
+        nextReview();
+      }, 5000);
+    }
+    carousel.addEventListener('mouseenter', () => clearInterval(timer));
+    carousel.addEventListener('mouseleave', startAutoSwitch);
 
-document.getElementById('nextReview').onclick = () => { nextReview(); startAutoSwitch(); };
-document.getElementById('prevReview').onclick = () => { prevReview(); startAutoSwitch(); };
-dotsContainer.onclick = e => {
-  if (e.target.classList.contains('reviews-dot')) {
-    goToReview(Number(e.target.dataset.idx));
+    document.getElementById('nextReview').onclick = () => { nextReview(); startAutoSwitch(); };
+    document.getElementById('prevReview').onclick = () => { prevReview(); startAutoSwitch(); };
+    dotsContainer.onclick = e => {
+      if (e.target.classList.contains('reviews-dot')) {
+        goToReview(Number(e.target.dataset.idx));
+        startAutoSwitch();
+      }
+    };
+
+    renderReviews();
     startAutoSwitch();
-  }
+}
 };
 
 renderReviews();
