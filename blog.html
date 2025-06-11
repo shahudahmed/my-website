@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Big Red Banana</title>
-    <meta name="description" content="Generate catchy marketing slogans instantly with Big Red Banana's AI-powered Sloganizer.">
+    <meta name="description" content="News, insights, and updates from the Big Red Banana team.">
     <meta property="og:title" content="Blog - Big Red Banana">
-    <meta property="og:description" content="Blog page!">
+    <meta property="og:description" content="Need a catchy slogan? Let our AI-powered tool spark your creativity!">
     <meta property="og:image" content="https://yourdomain.com/preview.jpg">
-    <meta property="og:url" content="https://yourdomain.com/sloganizer.html">
+    <meta property="og:url" content="https://yourdomain.com/blog.html">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
@@ -18,63 +18,120 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- HEADER (copy this from your homepage) -->
-    <header id="header" class="header">
-        <div class="container header-container">
-            <a href="index.html" class="logo">🍌 Big Red Banana</a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html#home">Home</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="index.html#work">Work</a></li>
-                    <li><a href="index.html#pricing">Pricing</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
-                    <li><a href="blog.html" class="active">Blog</a></li>
-                    <li><a href="sloganizer.html">AI Sloganizer</a></li>
-                </ul>
-                <div class="mobile-menu">
-                    <span></span><span></span><span></span>
-                </div>
-            </nav>
-        </div>
+    <!-- Loading Animation -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <!-- Header (copied from Sloganizer) -->
+    <header id="header">
+        <nav class="container">
+            <a href="index.html#home" class="logo">
+                <img src="https://i.ibb.co/tTJf2QNx/BRB-red-banana.png" alt="Big Red Banana Logo" class="logo-icon-svg">
+                <span class="logo-text-big">Big</span>&nbsp;<span class="logo-text-red">Red</span>&nbsp;<span class="logo-text-banana">Banana</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#team">Team</a></li>
+                <li><a href="index.html#work">Portfolio</a></li>
+                <li><a href="sloganizer.html">AI Sloganizer</a></li>
+                <li><a href="index.html#reviews">Reviews</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
     </header>
 
+    <!-- Blog Main Content -->
     <main class="container">
-        <h1 class="section-title">The Big Red Banana</h1>
+        <h1 class="section-title">The Big Red Banana Blog</h1>
         <p class="section-subtitle">News, insights, and updates from the team.</p>
         <div id="posts-container" class="work-grid"></div>
     </main>
 
-    <!-- FOOTER (copy this from your homepage) -->
-    <footer class="footer">
-        <div class="container footer-section">
-            <div>
-                <a href="index.html" class="logo">🍌 Big Red Banana</a>
-                <p>We make brands go absolutely bananas! 🚀</p>
+    <!-- Footer (copied from Sloganizer) -->
+    <footer id="contact-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Get in Touch</h4>
+                    <p><i class="fas fa-envelope"></i> bigredbanana@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> (+91) 7024783943</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Raipur, Chhattisgarh</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Our Services</h4>
+                    <a href="#"><i class="fas fa-share-alt"></i> Social Media Marketing</a>
+                    <a href="#"><i class="fas fa-search"></i> Search Engine Optimization</a>
+                    <a href="#"><i class="fas fa-pen-fancy"></i> Content Creation & Strategy</a>
+                    <a href="#"><i class="fas fa-bullhorn"></i> Digital Advertising (PPC)</a>
+                    <a href="#"><i class="fas fa-palette"></i> Brand Identity & Design</a>
+                    <a href="#"><i class="fas fa-chart-line"></i> Analytics & Reporting</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <a href="index.html#about"><i class="fas fa-info-circle"></i> About Us</a>
+                    <a href="index.html#work"><i class="fas fa-briefcase"></i> Portfolio</a>
+                    <a href="index.html#team"><i class="fas fa-users"></i> Our Team</a>
+                    <a href="index.html#pricing"><i class="fas fa-tags"></i> Pricing</a>
+                    <a href="#"><i class="fas fa-blog"></i> Blog & Insights</a>
+                    <a href="#"><i class="fas fa-handshake"></i> Careers</a>
+                    <a href="#"><i class="fas fa-file-contract"></i> Privacy Policy</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Us</h4>
+                    <p>Follow our journey and get daily marketing tips!</p>
+                    <div class="social-links">
+                        <a href="#" title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" title="Twitter" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="YouTube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" title="TikTok" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="index.html#work">Work</a></li>
-                    <li><a href="index.html#pricing">Pricing</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Big Red Banana Digital Marketing Agency. All rights reserved. Let's go bananas! 
+                    <span class="red-banana-emoji">🍌</span>
+                </p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Crafted with ❤️ and lots of ☕ by our amazing team</p>
             </div>
-            <div>
-                <h4>Contact</h4>
-                <p>Email: hello@bigredbanana.com</p>
-                <p>Phone: +91 12345 67890</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Big Red Banana. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- SCRIPTS -->
+    <a href="#home" class="scroll-top hidden-initially" id="scrollTop"> <i class="fas fa-arrow-up"></i></a>
+    <div id="easterEggNotification" class="easter-egg-notification">
+        🍌 You found the secret! You really love bananas! 🍌
+    </div>
+
+    <!-- Scripts -->
     <script src="scripts.js"></script>
     <script type="module" src="blog.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loading');
+                if (loadingScreen) {
+                    loadingScreen.classList.add('hidden');
+                }
+            }, 800); 
+        });
+    </script>
 </body>
 </html>
