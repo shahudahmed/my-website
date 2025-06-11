@@ -1120,7 +1120,7 @@
 
 /* Styling for the new post card */
 .post-card {
-    background: var(--card-bg);
+    background: var(--primary-yellow); /* CHANGED: Was var(--card-bg) */
     border-radius: 15px;
     overflow: hidden;
     text-decoration: none;
