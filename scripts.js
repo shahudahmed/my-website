@@ -380,7 +380,7 @@ const reviewsData = [
     avatar: "J"
   }
 ];
-
+document.addEventListener('DOMContentLoaded', function() {
 const carousel = document.getElementById('reviewsCarousel');
 const dotsContainer = document.getElementById('reviewsDots');
 
@@ -437,3 +437,4 @@ if (carousel && dotsContainer) {
     renderReviews();
     startAutoSwitch();
 }
+        });
