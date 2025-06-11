@@ -437,7 +437,3 @@ if (carousel && dotsContainer) {
     renderReviews();
     startAutoSwitch();
 }
-};
-
-renderReviews();
-startAutoSwitch();
