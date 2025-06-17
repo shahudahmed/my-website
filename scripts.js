@@ -240,7 +240,7 @@ const mobileMenuStyles = `
         }
         
         .nav-links li {
-            margin: 1.5rem 0;
+            margin: 1rem 0;
             width: 100%;
             text-align: center;
             opacity: 0;
