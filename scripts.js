@@ -212,84 +212,85 @@ document.addEventListener('DOMContentLoaded', function() {
             typeObserver.observe(titleElement);
         }
 
-        // Mobile menu styles
-        const mobileMenuStyles = `
-            @media (max-width: 768px) {
-                .nav-links {
-                    position: fixed;
-                    top: 0; 
-                    right: -100%; 
-                    width: 75%; 
-                    max-width: 320px; 
-                    height: 100vh;
-                    background: rgba(255, 250, 235, 0.98);
-                    backdrop-filter: blur(18px); 
-                    flex-direction: column;
-                    justify-content: center; 
-                    align-items: center; 
-                    padding-top: 0; 
-                    transition: right 0.45s cubic-bezier(0.77, 0, 0.175, 1); 
-                    border-left: 1px solid var(--glass-border);
-                    z-index: 999; 
-                    display: flex; 
-                }
-                
-                .nav-links.active {
-                    right: 0; 
-                }
-                
-                .nav-links li {
-                    margin: 1.5rem 0; 
-                    width: 100%;
-                    text-align: center;
-                    opacity: 0; 
-                    transform: translateX(20px); 
-                    transition: opacity 0.3s ease, transform 0.3s ease;
-                }
-                .nav-links.active li { 
-                    opacity: 1;
-                    transform: translateX(0);
-                }
-                .nav-links.active li:nth-child(1) { transition-delay: 0.1s; }
-                .nav-links.active li:nth-child(2) { transition-delay: 0.15s; }
-                .nav-links.active li:nth-child(3) { transition-delay: 0.2s; }
-                .nav-links.active li:nth-child(4) { transition-delay: 0.25s; }
-                .nav-links.active li:nth-child(5) { transition-delay: 0.3s; }
-                .nav-links.active li:nth-child(6) { transition-delay: 0.35s; }
-                .nav-links.active li:nth-child(7) { transition-delay: 0.4s; }
-
-
-                
-                .nav-links a {
-                    font-size: 1.4rem; 
-                    padding: 0.8rem 1.5rem;
-                    border-radius: 8px;
-                    transition: background-color 0.3s ease, color 0.3s ease;
-                    display: block; 
-                    color: var(--primary-text);
-                }
-                
-                .nav-links a:hover {
-                    background: var(--primary-yellow);
-                    color: var(--secondary-red); 
-                }
-                
-                .mobile-menu.active span:nth-child(1) {
-                    transform: rotate(-45deg) translate(-6px, 7px);
-                }
-                
-                .mobile-menu.active span:nth-child(2) {
-                    opacity: 0;
-                }
-                
-                .mobile-menu.active span:nth-child(3) {
-                    transform: rotate(45deg) translate(-5px, -7px);
-                }
-            }
-        `;
-        const styleSheet = document.createElement("style");
-        styleSheet.innerText = mobileMenuStyles;
-        document.head.appendChild(styleSheet);
+       // Mobile menu styles
+const mobileMenuStyles = `
+    @media (max-width: 768px) {
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 75%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(255, 250, 235, 0.98);
+            backdrop-filter: blur(18px);
+            flex-direction: column;
+            justify-content: flex-start; /* Changed from center to start */
+            align-items: center;
+            padding: 5rem 0; /* Added padding for better spacing */
+            transition: right 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+            border-left: 1px solid var(--glass-border);
+            z-index: 999;
+            display: flex;
+            overflow-y: auto; /* Enable scrolling */
+        }
+        
+        .nav-links.active {
+            right: 0;
+        }
+        
+        .nav-links li {
+            margin: 1.5rem 0;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .nav-links.active li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .nav-links.active li:nth-child(1) { transition-delay: 0.1s; }
+        .nav-links.active li:nth-child(2) { transition-delay: 0.15s; }
+        .nav-links.active li:nth-child(3) { transition-delay: 0.2s; }
+        .nav-links.active li:nth-child(4) { transition-delay: 0.25s; }
+        .nav-links.active li:nth-child(5) { transition-delay: 0.3s; }
+        .nav-links.active li:nth-child(6) { transition-delay: 0.35s; }
+        .nav-links.active li:nth-child(7) { transition-delay: 0.4s; }
+        .nav-links.active li:nth-child(8) { transition-delay: 0.45s; }
+        .nav-links.active li:nth-child(9) { transition-delay: 0.5s; }
+        
+        .nav-links a {
+            font-size: 1.4rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: block;
+            color: var(--primary-text);
+        }
+        
+        .nav-links a:hover {
+            background: var(--primary-yellow);
+            color: var(--secondary-red);
+        }
+        
+        .mobile-menu.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-6px, 7px);
+        }
+        
+        .mobile-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -7px);
+        }
+    }
+`;
+const styleSheet = document.createElement("style");
+styleSheet.innerText = mobileMenuStyles;
+document.head.appendChild(styleSheet);
 
         // Initialize all effects
         document.addEventListener('DOMContentLoaded', function() {
