@@ -347,7 +347,58 @@ document.head.appendChild(styleSheet);
                 }
             });
         }
-        
+
+        // Easter egg notification styles
+const easterEggStyles = `
+    #easterEggNotification {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-yellow); /* Yellow background */
+        color: var(--primary-text);
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        display: none; /* Hidden by default */
+        font-size: 1rem;
+        text-align: center;
+        max-width: 90%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    #easterEggNotification.show {
+        display: block;
+        opacity: 1;
+    }
+
+    @media (max-width: 428px) {
+        #easterEggNotification {
+            bottom: 80px; /* Position above the Scroll to Top button */
+            font-size: 0.9rem;
+            padding: 0.8rem 1.5rem;
+            display: none; /* Ensure it’s hidden on mobile by default */
+        }
+
+        #easterEggNotification.show {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Prevent any red background */
+        #easterEggNotification,
+        #easterEggNotification.show {
+            background: var(--primary-yellow) !important;
+            background-color: var(--primary-yellow) !important;
+        }
+    }
+`;
+const easterEggStyleSheet = document.createElement("style");
+easterEggStyleSheet.innerText = easterEggStyles;
+document.head.appendChild(easterEggStyleSheet);
+
         // Console message
         console.log('%c🍌 Big Red Banana Digital Marketing Agency 🍌', 'color: var(--secondary-red); font-size: 20px; font-weight: bold; background-color: var(--primary-yellow); padding: 5px 10px; border-radius: 5px;');
         console.log('%cWe make brands go absolutely bananas! 🚀', 'color: var(--secondary-red); font-size: 14px;');
