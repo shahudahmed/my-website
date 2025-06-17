@@ -26,6 +26,34 @@
             }
         });
 
+// Bigredbanana logo click functionality
+const logoElement = document.querySelector('.logo');
+
+if (logoElement) {
+    logoElement.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent default anchor behavior
+
+        // Get the current URL hash (e.g., #about, #contact, or empty for #home)
+        const currentHash = window.location.hash || '#home';
+
+        if (currentHash === '#home') {
+            // If on the home section, scroll to the top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        } else {
+            // If on a different section, redirect to the home section
+            window.location.hash = '#home';
+            // Ensure the page scrolls to the top of the #home section
+            const homeSection = document.querySelector('#home');
+            if (homeSection) {
+                homeSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    });
+}
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
