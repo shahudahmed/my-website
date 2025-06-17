@@ -358,7 +358,6 @@ document.head.appendChild(styleSheet);
         // Console message
         console.log('%c🍌 Big Red Banana Digital Marketing Agency 🍌', 'color: var(--secondary-red); font-size: 20px; font-weight: bold; background-color: var(--primary-yellow); padding: 5px 10px; border-radius: 5px;');
         console.log('%cWe make brands go absolutely bananas! 🚀', 'color: var(--secondary-red); font-size: 14px;');
-        console.log('%cInterested in working with us? (This is a demo site!)', 'color: #64748b; font-size: 12px;');
    
         // Pricing card skeleton loader
         window.addEventListener('load', function () {
