@@ -4,3 +4,8 @@
   status = 301
   force = true
 
+[build]
+  publish = "public"
+
+[[plugins]]
+  package = "netlify-plugin-sitemap"
