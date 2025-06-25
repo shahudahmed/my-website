@@ -26,66 +26,62 @@
             }
         });
 
-// Bigredbanana logo click functionality
-const logoElement = document.querySelector('.logo');
-
-if (logoElement) {
-    logoElement.addEventListener('click', function(e) {
-        e.preventDefault(); // Prevent default anchor behavior
-
-        // Get the current URL hash (e.g., #about, #contact, or empty for #home)
-        const currentHash = window.location.hash || '#home';
-
-        if (currentHash === '#home') {
-            // If on the home section, scroll to the top
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        } else {
-            // If on a different section, redirect to the home section
-            window.location.hash = '#home';
-            // Ensure the page scrolls to the top of the #home section
-            const homeSection = document.querySelector('#home');
-            if (homeSection) {
-                homeSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    });
-}
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    const header = document.querySelector('header');
-                    const headerHeight = header ? header.offsetHeight : 0;
-                    let targetPosition = targetElement.offsetTop - headerHeight;
-
-                    if (targetId === '#home') {
-                        targetPosition = 0;
-                    }
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                    if (navLinks && navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        if(mobileMenu) mobileMenu.classList.remove('active');
-                    }
-                }
-            });
-        });
 
         // Mobile menu toggle
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMenu = document.querySelector('.mobile-menu');
     const navLinks = document.querySelector('.nav-links');
+    const logoElement = document.querySelector('.logo');
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+
+            // Ignore empty hash links often used as placeholders
+            if (!targetId || targetId === '#') {
+                return;
+            }
+
+            e.preventDefault();
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                const header = document.querySelector('header');
+                const headerHeight = header ? header.offsetHeight : 0;
+                let targetPosition = targetElement.offsetTop - headerHeight;
+
+                if (targetId === '#home') {
+                    targetPosition = 0;
+                }
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                if (navLinks && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    if (mobileMenu) mobileMenu.classList.remove('active');
+                }
+            }
+        });
+    });
+
+    if (logoElement) {
+        logoElement.addEventListener('click', function(e) {
+            e.preventDefault();
+            const currentHash = window.location.hash || '#home';
+            if (currentHash === '#home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                window.location.hash = '#home';
+                const homeSection = document.querySelector('#home');
+                if (homeSection) {
+                    homeSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    }
 
     if (mobileMenu && navLinks) {
         mobileMenu.addEventListener('click', function() {
