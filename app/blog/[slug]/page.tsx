@@ -1,15 +1,24 @@
 import { client } from '../../../lib/sanity';
-import { notFound } from 'next/navigation';
 
-interface Post { _id: string; title: string; body: any; }
+interface PageProps {
+  params: { slug: string }
+}
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const post = await client.fetch<Post | null>(`*[_type == "post" && slug.current == $slug][0]`, { slug: params.slug });
-  if (!post) return notFound();
+export default async function Page({ params }: PageProps) {
+  // Fetch the post data from Sanity using the slug
+  const post = await client.fetch(
+    `*[_type == "post" && slug.current == $slug][0]`,
+    { slug: params.slug }
+  );
+
+  if (!post) {
+    return <div>Post not found</div>;
+  }
+
   return (
-    <article className="prose mx-auto">
+    <article>
       <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-      <pre>{JSON.stringify(post.body)}</pre>
+      <div>{/* Render post content here (e.g., body) */}</div>
     </article>
   );
 }
