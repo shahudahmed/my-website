@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #E30613;
+}
+
+body {
+  @apply text-gray-800 bg-white font-sans;
+}
