@@ -5,9 +5,11 @@ export default function Header() {
     <header id="header">
       <nav className="container">
         <Link href="/" className="logo">
-          <span className="logo-text-big">Big</span>&nbsp;
-          <span className="logo-text-red">Red</span>&nbsp;
-          <span className="logo-text-banana">Banana</span>
+          <img 
+            src="/images/logo.png" 
+            alt="Logo"
+            style={{ height: '50px', width: 'auto', display: 'block' }} 
+          />
         </Link>
         <ul className="nav-links">
           <li><Link href="/#home">Home</Link></li>
