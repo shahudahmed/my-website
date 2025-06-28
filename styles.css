@@ -78,11 +78,14 @@
             transform: scale(1.05);
         }
 
-        .logo-icon-svg {
-            width: 2.2rem;
-            height: 2.2rem;
-            fill: currentColor;
-        }
+       .logo-icon-svg {
+  width: 2.2rem !important;
+  height: 2.2rem !important;
+  object-fit: contain !important;
+  margin-right: 10px !important;
+  display: inline-block;
+}
+
 
         .logo-text-big, .logo-text-red, .logo-text-banana {
              color: var(--secondary-red);
