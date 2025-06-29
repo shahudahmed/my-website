@@ -16,7 +16,6 @@ export default function Header() {
           <li><Link href="/#about">About</Link></li>
           <li><Link href="/#team">Team</Link></li>
           <li><Link href="/#work">Portfolio</Link></li>
-          <li><Link href="/sloganizer">AI Sloganizer</Link></li>
           <li><Link href="/#reviews">Reviews</Link></li>
           <li><Link href="/#pricing">Pricing</Link></li>
           <li><Link href="/#contact">Contact</Link></li>
