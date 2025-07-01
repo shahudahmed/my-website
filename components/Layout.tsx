@@ -1,13 +1,16 @@
+
 import { ReactNode } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <>
-      <Header />
-      <main>{children}</main>
-      <Footer />
-    </>
+    <html lang="en">
+      <body>
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </body>
+    </html>
   );
 }
