@@ -46,9 +46,6 @@ export default function Header() {
             <Link href="#reviews">Reviews</Link>
           </li>
           <li>
-            <Link href="/sloganizer">AI Sloganizer</Link>
-          </li>
-          <li>
             <Link href="#pricing">Pricing</Link>
           </li>
           <li>
