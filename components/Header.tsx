@@ -1,4 +1,4 @@
-// components/Header.tsx
+
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
@@ -11,7 +11,7 @@ export default function Header() {
       <nav className="container flex items-center justify-between py-4">
         <Link href="/" className="logo flex items-center gap-2">
           <img
-            src="/images/logo.png"
+            src="/images/logo.avif"
             alt="Big Red Banana Logo"
             style={{
               height: "40px",

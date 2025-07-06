@@ -2,6 +2,6 @@
 export default {
   reactStrictMode: true,
   images: {
-    domains: ['cdn.sanity.io'],
+    domains: ['cdn.sanity.io','i.ibb.co', 'placehold.co'],
   },
 };

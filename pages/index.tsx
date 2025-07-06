@@ -186,13 +186,13 @@ export default function Home() {
             {[
               {
                 name: "Shakib Hussain",
-                img: "/images/shakib2.jpg",
+                img: "/images/shakib2.avif",
                 role: "Founder",
                 desc: "The mind behind the madness, Shakib Hussain is the driving force behind Big Red Banana. With a bold name and an even bolder vision, Shakib set out to build a brand that doesn't just stand out — it sticks in your mind."
               },
               {
                 name: "Shahud Ahmed",
-                img: "/images/shahud.jpg",
+                img: "/images/shahud.avif",
                 role: "Co-Founder Strategy Lead & Analytics Expert",
                 desc: "Shahud is the brain behind the game plan. As Co-Founder and Strategy Lead, he connects dots others miss — turning data into direction and chaos into clarity. With a sharp eye on the numbers and a sharper instinct for what’s next, Shahud ensures Big Red Banana isn’t just creative — it’s calculated. Basically, he’s the reason our wild ideas actually work."
               },
@@ -440,3 +440,6 @@ export default function Home() {
     </>
   );
 }
+
+
+
